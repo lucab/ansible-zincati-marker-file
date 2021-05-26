@@ -1,0 +1,4 @@
+# From https://getfedora.org/en/coreos/
+target_version: "34.20210518.1.0"
+# From `date --iso-8601=seconds --date=<whatever>`
+maintenance_end: "2021-05-25T20:36:31+00:00"

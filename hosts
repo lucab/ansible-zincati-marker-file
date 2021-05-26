@@ -1,0 +1,4 @@
+[coreos_zincati]
+node1 ansible_user=core ansible_host=localhost ansible_port=2222
+node2 ansible_user=core ansible_host=localhost ansible_port=2223
+node3 ansible_user=core ansible_host=localhost ansible_port=2224

@@ -1,0 +1,29 @@
+---
+- name: "Finalize Fedora CoreOS auto-updates via Zincati marker_file strategy"
+  hosts: "all"
+  gather_facts: false
+  vars:
+    force_clean: false
+
+  tasks:
+    - name: "Get current OS version"
+      raw: 'source /usr/lib/os-release; echo -n ${OSTREE_VERSION}'
+      register: os_release
+    - set_fact:
+        ostree_version: "{{ os_release.stdout }}"
+        allow_until: "{{ (maintenance_end | to_datetime('%Y-%m-%dT%H:%M:%S%z')).timestamp() | int }}"
+    - name: "Cleanup any previous stale markers"
+      raw: "rm -f /var/lib/zincati/admin/strategy/marker_file/allowfinalize.json"
+      become: yes
+      when: (ostree_version == target_version) or force_clean
+    - debug:
+        msg:
+        - 'Current version: {{ ostree_version }}'
+        - 'Target version: {{ target_version }}'
+    - name: "Stop on updated hosts"
+      meta: end_host
+      when: ostree_version == target_version
+    - name: "Write marker file"
+      script: ./scripts/write-marker-file.sh "{{ allow_until }}"
+      become: yes
+

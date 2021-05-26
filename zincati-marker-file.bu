@@ -1,0 +1,17 @@
+---
+# docker run -i --rm quay.io/coreos/butane:release --pretty --strict < zincati-marker-file.bu > zincati-marker-file.ign
+variant: fcos
+version: 1.3.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsWcDA7X5ZhXZ0Wil5aqJEvyuDkKuX1yBh0MhS4iFkODpS+yqhXUEdc/sDrk3zV+hHBh7nB9tlPzy9lp5A0cOXFpkzW79vdSZiZ94h2vg9aTgzi/D8NeOlfkCPgZjF6Mqa2g3kK0GhUzxrOY3d+GEK49ec9KRTLmk0qSx2XXwZx7ZdXNGetFR0XtuGKrK1BuK7KnkySdKgSFx4wdSuXznoi/WyhId+WpM2lRqEsol5yoRiHn4fzSR03NQG79dIIaSIvD0Rd9tSEWwJz/ZMGvGtkMYL3bqbG+4OQfDmhhjHER4S1chA+SlCvuqYcbxWB4VVWqMQhNBIOfhpFMoVCTJg9pw1bM7s/IHfmDDa0357nP8J3Ll6+MWoh6/ExrM8TQfZ8zLVgDUVktFIgE1Y88mLhM0obNWvPy1cKh+Ut9iIqsmnAmvChsU+/pJnmilCTZvOLJnxdBBpzVav2OnqtuWLaIYeZz1Bvc49ptujZvBiArsQBmnkMJDF2zmJxWjc8gDX3rPkMh+BWwXpSiI2ufrQNnzmlfdky6mxEy35wZvvC+YldM23XPZxuvqIR6GeQ4LtE0tLpY7TP/TayTcqxKcmrWZjZxKiEVn8eRYpGMUoYEBfHawZwcFJtzUSg8BySwpeLEzmlVn29qi7BRmFa8VDIvQChIeR7UmRCJvR5Ynltw== luca.bruno@coreos.com"
+storage:
+  files:
+    - path: /etc/zincati/config.d/90-strategy-marker-file.toml
+      mode: 0644
+      contents:
+        inline: |
+          [updates]
+          strategy = "marker_file"
